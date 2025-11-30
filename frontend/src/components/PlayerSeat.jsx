@@ -100,21 +100,24 @@ export default function PlayerSeat({
       {/* Cards */}
       {cards.length > 0 && (
         <div className={cn(
-          "absolute flex gap-1 z-10 transition-all duration-300",
+          "absolute flex gap-0.5 md:gap-1 transition-all duration-300",
           // Dynamic positioning based on seat location
-          position === 'bottom' && "-top-32 left-1/2 -translate-x-1/2 scale-125", // Hero: Centered above
-          position === 'top' && "top-24 left-1/2 -translate-x-1/2 scale-75",      // Top: Centered below
-          position === 'left' && "top-0 -right-24 scale-75 origin-left",           // Left: To the right
-          position === 'right' && "top-0 -left-24 scale-75 origin-right flex-row-reverse", // Right: To the left (reversed for visual balance?) -> actually just to the left is fine.
+          // Hero: Cards just above avatar, closer positioning
+          position === 'bottom' && "-top-24 md:-top-28 left-1/2 -translate-x-1/2 scale-90 md:scale-100 z-20",
+          // Other positions: Cards below avatar
+          position === 'top' && "top-16 md:top-18 left-1/2 -translate-x-1/2 scale-60 md:scale-40 z-0",
+          position === 'left' && "top-12 md:top-14 -right-16 md:-right-20 scale-60 md:scale-40 origin-left z-0",
+          position === 'right' && "top-12 md:top-32 -left-16 md:-left-20 scale-60 md:scale-40 origin-right flex-row-reverse z-0",
           // Fallback for any other case
-          !['bottom', 'top', 'left', 'right'].includes(position) && "-top-24 left-1/2 -translate-x-1/2 scale-75"
+          !['bottom', 'top', 'left', 'right'].includes(position) && "-top-24 left-1/2 -translate-x-1/2 scale-70 z-0"
         )}>
           {cards.map((card, idx) => (
-            <div key={idx} className={cn("shadow-2xl", isHero && "hover:-translate-y-4 transition-transform")}>
+            <div key={idx} className={cn("shadow-2xl", isHero && "hover:-translate-y-2 transition-transform")}>
               <PlayingCard
                 rank={showCards || isHero ? card.rank : null}
                 suit={showCards || isHero ? card.suit : null}
                 faceDown={!showCards}
+                className="w-16 h-24 md:w-20 md:h-28"
               />
             </div>
           ))}
