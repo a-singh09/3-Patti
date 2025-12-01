@@ -572,14 +572,14 @@ export default function GameRoom({ socket }) {
             <div className="bg-white/10 rounded-lg p-4 mb-4">
               <p className="text-gray-300 text-sm mb-2">Room ID</p>
               <div className="flex items-center justify-center gap-2">
-                <p className="text-white text-sm font-bold tracking-wider">
+                <p className="text-white text-sm font-bold tracking-wider break-all max-w-[250px]">
                   {roomId}
                 </p>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={handleCopyRoomId}
-                  className="text-white hover:bg-white/10"
+                  className="text-white hover:bg-white/10 flex-shrink-0"
                 >
                   <Copy className="w-5 h-5" />
                 </Button>
@@ -826,14 +826,25 @@ export default function GameRoom({ socket }) {
               }
               // Opponent Logic for 2 Players
               else if (orderedPlayers.length === 2) {
-                positionClasses += " top-[15%] right-[5%] md:right-[20%]";
+                positionClasses += " top-[15%] md:top-[10%] right-[5%] md:right-[20%]";
               }
-              // Standard 6-max Logic
+              // 3 Players Layout
+              else if (orderedPlayers.length === 3) {
+                if (index === 1) positionClasses += " bottom-[25%] md:bottom-[20%] left-[5%] md:left-[12%]";
+                else if (index === 2) positionClasses += " bottom-[25%] md:bottom-[20%] right-[5%] md:right-[12%]";
+              }
+              // 4 Players Layout
+              else if (orderedPlayers.length === 4) {
+                if (index === 1) positionClasses += " bottom-[30%] md:bottom-[25%] left-[3%] md:left-[8%]";
+                else if (index === 2) positionClasses += " top-[15%] md:top-[12%] left-[8%] md:left-[15%]";
+                else if (index === 3) positionClasses += " bottom-[30%] md:bottom-[25%] right-[3%] md:right-[8%]";
+              }
+              // Standard 5-6 Players Logic
               else {
                 if (index === 1) positionClasses += " bottom-[25%] md:bottom-[20%] left-[2%] md:left-[10%]";
-                else if (index === 2) positionClasses += " top-[20%] left-[5%] md:left-[15%]";
-                else if (index === 3) positionClasses += " top-[10%] left-1/2 -translate-x-1/2";
-                else if (index === 4) positionClasses += " top-[20%] right-[5%] md:right-[15%]";
+                else if (index === 2) positionClasses += " top-[20%] md:top-[15%] left-[5%] md:left-[15%]";
+                else if (index === 3) positionClasses += " top-[10%] md:top-[8%] left-1/2 -translate-x-1/2";
+                else if (index === 4) positionClasses += " top-[20%] md:top-[15%] right-[5%] md:right-[15%]";
                 else if (index === 5) positionClasses += " bottom-[25%] md:bottom-[20%] right-[2%] md:right-[10%]";
               }
 
